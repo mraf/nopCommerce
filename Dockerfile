@@ -1,5 +1,5 @@
 # create the build instance 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim-arm32v7 AS build
 
 WORKDIR /src                                                                    
 COPY ./src ./
