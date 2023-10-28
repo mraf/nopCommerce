@@ -77,7 +77,7 @@ RUN chmod 775 wwwroot/images/thumbs
 RUN chmod 775 wwwroot/images/uploaded
 
 # create the runtime instance 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS runtime 
+FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime 
 
 # add globalization support
 RUN apk add --no-cache icu-libs
