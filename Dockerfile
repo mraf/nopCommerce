@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # create the build instance 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim-arm32v7 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy-arm64v8 AS build
 
 WORKDIR /src                                                                    
 COPY ./src ./
@@ -80,7 +80,7 @@ RUN chmod 775 wwwroot/images/thumbs
 RUN chmod 775 wwwroot/images/uploaded
 
 # create the runtime instance 
-FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime
+FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy-arm64v8 AS runtime
 
 # Update the package lists and install required packages
 RUN apt-get update && apt-get install -y \
@@ -100,7 +100,7 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:7.0-bullseye-slim-arm32v7 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy-arm64v8 AS base
 
 WORKDIR /app
 
