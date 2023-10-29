@@ -91,11 +91,6 @@ RUN apt-get update && apt-get install -y \
     tzdata \
     curl
 
-# Download and install the missing .NET Core framework
-RUN curl -L -o dotnet-core.tar.gz https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App^&framework_version=7.0.0^&arch=arm^&rid=debian.11-arm \
-    && tar -xf dotnet-core.tar.gz -C /usr/share/dotnet \
-    && rm dotnet-core.tar.gz
-
 # Clean up the package cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -104,6 +99,8 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 # copy entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:7.0-bullseye-slim-arm32v7 AS base
 
 WORKDIR /app
 
