@@ -90,6 +90,11 @@ RUN apt-get update && apt-get install -y \
     libc6-dev \
     tzdata
 
+# Download and install the missing .NET Core framework
+RUN wget -q https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App^&framework_version=7.0.0^&arch=arm^&rid=debian.11-arm -O dotnet-core.zip \
+    && unzip -q dotnet-core.zip -d /usr/share/dotnet \
+    && rm dotnet-core.zip
+
 # Clean up the package cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
