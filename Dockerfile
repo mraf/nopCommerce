@@ -92,7 +92,6 @@ RUN apt-get update && apt-get install -y \
 
 # Download and install the missing .NET Core framework
 RUN curl -L -o dotnet-core.tar.gz https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App^&framework_version=7.0.0^&arch=arm^&rid=debian.11-arm \
-    && mkdir -p /usr/share/dotnet \
     && tar -xf dotnet-core.tar.gz -C /usr/share/dotnet \
     && rm dotnet-core.tar.gz
 
