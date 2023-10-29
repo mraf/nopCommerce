@@ -84,7 +84,7 @@ FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime
 
 # Update the package lists and install required packages
 RUN apt-get update && apt-get install -y \
-    libicu66 \
+    libicu-dev \
     libtiff5 \
     libgdiplus \
     libc6-dev \
