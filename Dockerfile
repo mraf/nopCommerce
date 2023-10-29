@@ -1,5 +1,5 @@
 # create the build instance 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim-arm32v7 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-focal-arm64v8 AS build
 
 WORKDIR /src                                                                    
 COPY ./src ./
@@ -77,17 +77,15 @@ RUN chmod 775 wwwroot/images/thumbs
 RUN chmod 775 wwwroot/images/uploaded
 
 # create the runtime instance 
-FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime 
+FROM mcr.microsoft.com/dotnet/runtime:7.0-focal-arm64v8 AS runtime 
 
 # add globalization support
-RUN apk add --no-cache icu-libs
+RUN apt-get install -y icu-libs
+
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # installs required packages
-RUN apk add tiff --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/main/ --allow-untrusted
-RUN apk add libgdiplus --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted
-RUN apk add libc-dev --no-cache
-RUN apk add tzdata --no-cache
+RUN apt-get install -y tiff libgdiplus libc6-dev tzdata
 
 # copy entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
