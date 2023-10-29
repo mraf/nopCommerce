@@ -91,9 +91,10 @@ RUN apt-get update && apt-get install -y \
     tzdata
 
 # Download and install the missing .NET Core framework
-RUN curl -L -o dotnet-core.zip https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App^&framework_version=7.0.0^&arch=arm^&rid=debian.11-arm \
-    && unzip -q dotnet-core.zip -d /usr/share/dotnet \
-    && rm dotnet-core.zip
+RUN curl -L -o dotnet-core.tar.gz https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App^&framework_version=7.0.0^&arch=arm^&rid=debian.11-arm \
+    && mkdir -p /usr/share/dotnet \
+    && tar -xf dotnet-core.tar.gz -C /usr/share/dotnet \
+    && rm dotnet-core.tar.gz
 
 # Clean up the package cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
