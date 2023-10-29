@@ -1,5 +1,5 @@
 # create the build instance 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-focal-arm64v8 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim-arm32v7 AS build
 
 WORKDIR /src                                                                    
 COPY ./src ./
@@ -77,7 +77,7 @@ RUN chmod 775 wwwroot/images/thumbs
 RUN chmod 775 wwwroot/images/uploaded
 
 # create the runtime instance 
-FROM mcr.microsoft.com/dotnet/runtime:7.0-focal-arm64v8 AS runtime 
+FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime
 
 # add globalization support
 RUN apt-get install -y icu-libs
