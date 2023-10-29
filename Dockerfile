@@ -1,3 +1,6 @@
+# Use the official Ubuntu as the base image
+FROM ubuntu:latest
+
 # create the build instance 
 FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim-arm32v7 AS build
 
@@ -79,13 +82,18 @@ RUN chmod 775 wwwroot/images/uploaded
 # create the runtime instance 
 FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim-arm32v7 AS runtime
 
-# add globalization support
-RUN apt-get install -y icu-libs
+# Update the package lists and install required packages
+RUN apt-get update && apt-get install -y \
+    libicu66 \
+    libtiff5 \
+    libgdiplus \
+    libc6-dev \
+    tzdata
+
+# Clean up the package cache to reduce image size
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
-
-# installs required packages
-RUN apt-get install -y tiff libgdiplus libc6-dev tzdata
 
 # copy entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
