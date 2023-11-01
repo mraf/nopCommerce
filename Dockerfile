@@ -114,4 +114,4 @@ COPY --from=build /app/published .
 
 EXPOSE 80
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT "/entrypoint.sh"
