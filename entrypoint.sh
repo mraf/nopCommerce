@@ -1,1 +1,1 @@
-exec dotnet Nop.Web.dll
+dotnet Nop.Web.dll
