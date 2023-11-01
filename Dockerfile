@@ -89,7 +89,7 @@ RUN apt-get update && apt-get install -y \
     libgdiplus \
     libc6-dev \
     tzdata \
-    curl
+    dos2unix
 
 # Clean up the package cache to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -99,6 +99,8 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 # copy entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
+
+RUN dos2unix /entrypoint.sh
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy-arm64v8 AS base
 
