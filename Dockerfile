@@ -98,9 +98,11 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # copy entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
+RUN chmod 755 entrypoint.sh
 
-RUN dos2unix /entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/
+
+RUN dos2unix /usr/local/bin/entrypoint.sh
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy-arm64v8 AS base
 
@@ -110,4 +112,4 @@ COPY --from=build /app/published .
 
 EXPOSE 80
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
