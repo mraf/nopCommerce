@@ -104,7 +104,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy-arm64v8 AS base
 
 WORKDIR /app
 
-ENTRYPOINT "/entrypoint.sh"
 COPY --from=build /app/published .
 
 EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
