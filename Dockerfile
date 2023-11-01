@@ -100,7 +100,7 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod 755 entrypoint.sh
 
-COPY entrypoint.sh /usr/local/bin/
+COPY /entrypoint.sh /usr/local/bin/
 
 RUN dos2unix /usr/local/bin/entrypoint.sh
 
@@ -112,4 +112,4 @@ COPY --from=build /app/published .
 
 EXPOSE 80
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
