@@ -114,5 +114,4 @@ COPY --from=build /app/published .
 
 EXPOSE 80
 
-RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
