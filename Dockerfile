@@ -96,16 +96,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-# copy entrypoint script
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod 755 entrypoint.sh
-
-COPY /entrypoint.sh /usr/local/bin/
-
-COPY /entrypoint.sh /
-
-RUN dos2unix /usr/local/bin/entrypoint.sh
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy-arm64v8 AS base
 
 WORKDIR /app
@@ -114,4 +104,4 @@ COPY --from=build /app/published .
 
 EXPOSE 80
 
-ENTRYPOINT "/entrypoint.sh"
+ENTRYPOINT ["dotnet", "Nop.Web.dll"]
